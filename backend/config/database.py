@@ -23,3 +23,8 @@ def get_db():
         yield db # Provide the session to the FastAPI endpoint
     finally:
         db.close() # Ensure session is closed after request completion
+
+async def create_tables():
+    """Create all database tables"""
+    from backend.models import user, cleanup_session, rule, audit_log
+    Base.metadata.create_all(bind=engine)
